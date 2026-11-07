@@ -1,0 +1,102 @@
+# =============================================================================
+#  KopitOS — workspace raíz
+# =============================================================================
+#
+#  Cada carpeta de primer nivel es una capa de la arquitectura:
+#
+#    boot/            Protocolo de arranque (KBP) y cargador UEFI KopitBoot
+#    kernel/          Núcleo (kernel_main, memoria, logs, consola, shell)
+#    arch/            Código específico de CPU (se compila DENTRO del núcleo,
+#                     como en Linux: kernel/src/main.rs lo incluye por #[path])
+#    drivers/         Controladores aislados: no dependen del núcleo, sólo de
+#                     drivers/api. Hoy se enlazan dentro; mañana, procesos.
+#    libs/            Algoritmos puros (buddy, ELF, SHA-256...) probados en el
+#                     anfitrión con `cargo test`
+#    ui/              Motor de temas, fuentes y compositor
+#    sys_init/        Grafo de servicios del init (PID 1)
+#    distro_builder/  Herramienta `kopit`: perfiles → imágenes IMG/ISO → QEMU
+#
+#  El núcleo y el cargador se compilan para objetivos bare-metal
+#  (x86_64-unknown-none, x86_64-unknown-uefi...). Por eso `default-members`
+#  sólo incluye lo que compila para el anfitrión: `cargo build` y `cargo test`
+#  sin argumentos funcionan en cualquier PC. Para todo lo demás:
+#
+#      cargo kopit run          (alias definido en .cargo/config.toml)
+# =============================================================================
+
+[workspace]
+resolver = "3"
+members = [
+    "boot/protocol",
+    "boot/kopitboot",
+    "kernel",
+    "libs/buddy",
+    "libs/crypto",
+    "libs/elf",
+    "libs/fdt",
+    "drivers/api",
+    "drivers/serial/uart16550",
+    "drivers/serial/pl011",
+    "drivers/video/framebuffer",
+    "drivers/input/ps2",
+    "drivers/bus/pci",
+    "ui/theme",
+    "ui/font",
+    "ui/compositor",
+    "sys_init",
+    "distro_builder",
+]
+default-members = [
+    "boot/protocol",
+    "libs/buddy",
+    "libs/crypto",
+    "libs/elf",
+    "libs/fdt",
+    "drivers/api",
+    "drivers/serial/uart16550",
+    "drivers/serial/pl011",
+    "drivers/video/framebuffer",
+    "drivers/input/ps2",
+    "drivers/bus/pci",
+    "ui/theme",
+    "ui/font",
+    "ui/compositor",
+    "sys_init",
+    "distro_builder",
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+license = "MIT"
+authors = ["Adrián Cueva Caravaca"]
+publish = false
+
+[workspace.dependencies]
+kopit-boot-proto = { path = "boot/protocol" }
+kopit-buddy = { path = "libs/buddy" }
+kopit-crypto = { path = "libs/crypto" }
+kopit-elf = { path = "libs/elf" }
+kopit-fdt = { path = "libs/fdt" }
+kopit-driver-api = { path = "drivers/api" }
+kopit-drv-uart16550 = { path = "drivers/serial/uart16550" }
+kopit-drv-pl011 = { path = "drivers/serial/pl011" }
+kopit-drv-fb = { path = "drivers/video/framebuffer" }
+kopit-drv-ps2 = { path = "drivers/input/ps2" }
+kopit-drv-pci = { path = "drivers/bus/pci" }
+kopit-theme = { path = "ui/theme" }
+kopit-font = { path = "ui/font" }
+kopit-compositor = { path = "ui/compositor" }
+kopit-init = { path = "sys_init" }
+
+# El núcleo no puede desenrollar la pila: un pánico detiene la CPU.
+[profile.dev]
+panic = "abort"
+opt-level = 1          # depurable, pero lo bastante rápido para pintar en pantalla
+
+[profile.release]
+panic = "abort"
+opt-level = 3
+codegen-units = 1
+lto = "fat"
+debug = "line-tables-only"   # trazas legibles con `cargo kopit addr2line`

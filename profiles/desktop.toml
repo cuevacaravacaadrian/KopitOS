@@ -1,0 +1,9 @@
+# PC de sobremesa: máxima respuesta (temporizador a 1000 Hz) y todo activado.
+[distro]
+inherits = "base"
+name = "KopitOS Desktop"
+description = "PC de sobremesa: rendimiento y respuesta"
+device_class = "desktop"
+
+[kernel]
+timer_hz = 1000

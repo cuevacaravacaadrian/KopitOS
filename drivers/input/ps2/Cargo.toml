@@ -1,0 +1,11 @@
+[package]
+name = "kopit-drv-ps2"
+description = "Controlador i8042/PS-2 y decodificador de teclado (distribuciones US y ES)"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+publish.workspace = true
+
+[dependencies]
+kopit-driver-api.workspace = true

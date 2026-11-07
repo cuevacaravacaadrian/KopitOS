@@ -1,0 +1,8 @@
+# Normaliza finales de línea: el código y los scripts se guardan con LF.
+* text=auto eol=lf
+*.ps1 text eol=crlf
+*.bat text eol=crlf
+*.png binary
+*.fd binary
+*.img binary
+*.iso binary

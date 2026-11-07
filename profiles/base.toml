@@ -1,0 +1,32 @@
+# =============================================================================
+#  Perfil base: lo que comparten todas las distribuciones de KopitOS.
+#  Los demás perfiles heredan de aquí (`inherits = "base"`) y sólo escriben
+#  lo que cambian. Crea el tuyo con:  cargo kopit new-distro <id>
+# =============================================================================
+
+[distro]
+name = "KopitOS"
+description = "Base común de todos los perfiles"
+version = "0.1.0"
+device_class = "desktop"      # desktop, laptop, server, tablet, phone, iot
+
+[kernel]
+# Funcionalidades del núcleo (features de Cargo): lo que no se lista NO se
+# compila, así que no ocupa memoria ni superficie de ataque.
+features = ["fbcon", "shell", "acpi", "pci", "ps2", "selftest"]
+cmdline = "loglevel=info"
+# timer_hz: si no se indica, el núcleo elige según device_class.
+
+[boot]
+timeout = 3                   # segundos del menú de KopitBoot (0 = sin menú)
+resolution = "1280x800"       # o "auto", "max", "keep"
+safe_mode_entry = true        # entrada "modo seguro" en el menú
+test_entry = true             # entrada "pruebas automáticas"
+
+[ui]
+theme = "kopit-noche"         # kopit-noche, kopit-dia, aurora, ambar, matriz, alto-contraste
+keymap = "es"                 # es, us
+font_scale = "auto"           # auto o 1-4
+
+[image]
+size_mib = 64                 # tamaño de la ESP en la imagen de disco

@@ -1,0 +1,8 @@
+[package]
+name = "kopit-compositor"
+description = "Compositor de KopitOS: escena por capas, daños, oclusión y backends (software/Vulkan/Metal/GL)"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+publish.workspace = true

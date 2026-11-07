@@ -1,0 +1,8 @@
+[package]
+name = "kopit-fdt"
+description = "Lector de árboles de dispositivos (DTB/FDT) para ARM64 y RISC-V"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+publish.workspace = true

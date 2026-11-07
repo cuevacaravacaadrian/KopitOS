@@ -1,0 +1,8 @@
+[package]
+name = "kopit-init"
+description = "sys_init de KopitOS: grafo de servicios, arranque paralelo por oleadas y perfiles por dispositivo"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+publish.workspace = true

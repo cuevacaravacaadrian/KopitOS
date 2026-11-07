@@ -1,0 +1,18 @@
+# Artefactos de compilación (cargo + imágenes generadas por distro_builder)
+/target/
+**/*.rs.bk
+
+# Imágenes y volcados que se generan al probar
+*.img
+*.iso
+*.fd.vars
+*.ppm
+qemu-*.log
+serial*.log
+
+# Editores y sistema
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db

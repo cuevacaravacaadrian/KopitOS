@@ -1,0 +1,18 @@
+# Servidor: sin prisa en el menú, registro detallado por la consola serie
+# (la que se usa en un centro de datos) y temporizador a 250 Hz.
+[distro]
+inherits = "base"
+name = "KopitOS Server"
+description = "Servidor: consola serie, registro detallado, sin adornos"
+device_class = "server"
+
+[kernel]
+cmdline = "loglevel=info serial.loglevel=debug"
+timer_hz = 250
+
+[boot]
+timeout = 1
+resolution = "1024x768"
+
+[ui]
+theme = "matriz"

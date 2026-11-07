@@ -1,0 +1,12 @@
+# Portátil: menos interrupciones por segundo (batería) y tema claro.
+[distro]
+inherits = "desktop"
+name = "KopitOS Laptop"
+description = "Portátil: equilibrio entre rendimiento y batería"
+device_class = "laptop"
+
+[kernel]
+timer_hz = 300
+
+[ui]
+theme = "kopit-dia"

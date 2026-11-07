@@ -1,0 +1,13 @@
+# Versión fija de Rust: compilaciones reproducibles en cualquier máquina.
+# rustup la instala sola (con estos objetivos) la primera vez que ejecutas cargo.
+[toolchain]
+channel = "1.99.1"
+profile = "minimal"
+components = ["rustfmt", "clippy", "llvm-tools"]
+targets = [
+    "x86_64-unknown-none",        # núcleo x86_64
+    "x86_64-unknown-uefi",        # KopitBoot (cargador UEFI)
+    "aarch64-unknown-none",       # núcleo ARM64
+    "aarch64-unknown-uefi",       # KopitBoot ARM64 (fase 2)
+    "riscv64gc-unknown-none-elf", # núcleo RISC-V
+]

@@ -1,0 +1,17 @@
+[package]
+name = "kopit-distro"
+description = "distro_builder: perfiles de distribución → núcleo + cargador → imágenes IMG/ISO → QEMU"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+publish.workspace = true
+
+[[bin]]
+name = "kopit"
+path = "src/main.rs"
+
+# Sin dependencias externas: la herramienta compila sin red y es auditable.
+[dependencies]
+kopit-crypto.workspace = true
+kopit-elf.workspace = true

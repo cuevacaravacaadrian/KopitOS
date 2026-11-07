@@ -1,0 +1,47 @@
+[package]
+name = "kopit-kernel"
+description = "El núcleo de KopitOS"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+publish.workspace = true
+build = "build.rs"
+
+[[bin]]
+name = "kopit-kernel"
+path = "src/main.rs"
+test = false
+bench = false
+
+# -----------------------------------------------------------------------------
+#  Funcionalidades opcionales: cada perfil de profiles/*.toml elige las suyas.
+#  Un dispositivo IoT puede compilar el núcleo sin consola gráfica ni shell y
+#  ahorrarse ese código entero (no sólo desactivarlo en ejecución).
+# -----------------------------------------------------------------------------
+[features]
+default = ["fbcon", "shell", "acpi", "pci", "ps2", "selftest"]
+fbcon = []      # consola gráfica sobre el framebuffer
+shell = []      # monitor interactivo del núcleo
+acpi = []       # tablas ACPI: CPUs, APIC, apagado
+pci = []        # enumeración PCI y registro de controladores
+ps2 = []        # teclado PS/2
+selftest = []   # pruebas de humo integradas (test=smoke)
+
+[dependencies]
+kopit-boot-proto.workspace = true
+kopit-buddy.workspace = true
+kopit-driver-api.workspace = true
+kopit-drv-fb.workspace = true
+kopit-drv-uart16550.workspace = true
+kopit-drv-pci.workspace = true
+kopit-theme.workspace = true
+kopit-font.workspace = true
+kopit-init.workspace = true
+kopit-fdt.workspace = true
+
+[target.'cfg(target_arch = "x86_64")'.dependencies]
+kopit-drv-ps2.workspace = true
+
+[target.'cfg(target_arch = "aarch64")'.dependencies]
+kopit-drv-pl011.workspace = true

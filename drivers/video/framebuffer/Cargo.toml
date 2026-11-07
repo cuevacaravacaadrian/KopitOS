@@ -1,0 +1,8 @@
+[package]
+name = "kopit-drv-fb"
+description = "Superficies de píxeles: framebuffer UEFI/VBE y búferes sombra en RAM"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+publish.workspace = true

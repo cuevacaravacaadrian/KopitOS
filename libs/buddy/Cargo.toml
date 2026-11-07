@@ -1,0 +1,8 @@
+[package]
+name = "kopit-buddy"
+description = "Asignador de marcos físicos buddy por zonas (no_std, probado en el anfitrión)"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+publish.workspace = true

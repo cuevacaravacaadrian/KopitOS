@@ -1,0 +1,8 @@
+[package]
+name = "kopit-crypto"
+description = "SHA-256 y CRC32 sin dependencias (no_std): integridad del núcleo, GPT, imágenes"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+publish.workspace = true

@@ -1,0 +1,19 @@
+# IoT: núcleo mínimo. Sin consola gráfica, sin PCI, sin teclado: se maneja
+# por el puerto serie. Lo que no se compila no ocupa memoria ni se puede atacar.
+[distro]
+inherits = "base"
+name = "KopitOS IoT"
+description = "Dispositivos IoT: núcleo mínimo, consola serie, 100 Hz"
+device_class = "iot"
+
+[kernel]
+features = ["shell", "acpi", "selftest"]
+cmdline = "loglevel=info"
+timer_hz = 100
+
+[boot]
+timeout = 0
+resolution = "keep"
+
+[image]
+size_mib = 40

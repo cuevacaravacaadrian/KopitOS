@@ -1,0 +1,33 @@
+# -----------------------------------------------------------------------------
+#  Atajos: todo el flujo de trabajo de KopitOS cabe en `cargo kopit <orden>`
+#
+#    cargo kopit run                      compila, crea la imagen y arranca QEMU
+#    cargo kopit run --boot pvh           arranque directo (sin firmware)
+#    cargo kopit image --profile server   imagen de disco GPT para un perfil
+#    cargo kopit iso                      ISO híbrida (CD + USB) arrancable
+#    cargo kopit test                     pruebas del anfitrión + humo en QEMU
+#    cargo kopit help                     todas las órdenes
+# -----------------------------------------------------------------------------
+[alias]
+kopit = "run --quiet --release --package kopit-distro --bin kopit --"
+
+# -----------------------------------------------------------------------------
+#  Opciones de compilación por objetivo
+# -----------------------------------------------------------------------------
+# x86_64: el núcleo vive en los últimos 2 GiB (0xFFFFFFFF80000000), así que
+#   * code-model=kernel   → direcciones absolutas de 32 bits con signo,
+#   * relocation-model=static → ELF ET_EXEC sin reubicaciones dinámicas: el
+#     cargador sólo copia segmentos (y GRUB/QEMU pueden cargarlo tal cual),
+#   * force-frame-pointers → trazas de pila fiables en los pánicos.
+[target.x86_64-unknown-none]
+rustflags = [
+    "-C", "code-model=kernel",
+    "-C", "relocation-model=static",
+    "-C", "force-frame-pointers=yes",
+]
+
+[target.aarch64-unknown-none]
+rustflags = ["-C", "relocation-model=static", "-C", "force-frame-pointers=yes"]
+
+[target.riscv64gc-unknown-none-elf]
+rustflags = ["-C", "relocation-model=static", "-C", "force-frame-pointers=yes"]

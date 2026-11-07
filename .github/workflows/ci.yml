@@ -1,0 +1,59 @@
+# Integración continua de KopitOS:
+#   - Linux: pruebas del anfitrión + arranque real en QEMU de las 5 configuraciones
+#     (UEFI disco, UEFI ISO, PVH, ARM64, RISC-V) y la ISO como artefacto.
+#   - Windows: la herramienta y las imágenes se generan igual (sin QEMU).
+name: CI
+
+on:
+  push:
+  pull_request:
+
+env:
+  CARGO_TERM_COLOR: always
+  SOURCE_DATE_EPOCH: "1767225600"
+
+jobs:
+  linux:
+    name: Linux · pruebas y arranque en QEMU
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: QEMU y firmware UEFI
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y qemu-system-x86 qemu-system-arm qemu-system-misc ovmf
+      - name: Toolchain (rust-toolchain.toml)
+        run: rustup show
+      - name: Formato
+        run: cargo fmt --all --check
+      - name: x86_64 · UEFI (disco e ISO) + PVH
+        run: cargo kopit test --timeout 240
+      - name: ARM64
+        run: cargo kopit test --arch aarch64 --timeout 240
+      - name: RISC-V
+        run: cargo kopit test --arch riscv64 --timeout 240
+      - name: Perfiles (todos compilan)
+        run: |
+          for p in desktop laptop server tablet phone iot; do
+            cargo kopit build --profile "$p"
+          done
+      - name: ISO de publicación
+        run: cargo kopit iso --release
+      - uses: actions/upload-artifact@v4
+        with:
+          name: kopitos-desktop-x86_64
+          path: target/kopitos/x86_64/desktop/*.iso
+
+  windows:
+    name: Windows · herramienta e imágenes
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Toolchain (rust-toolchain.toml)
+        run: rustup show
+      - name: Pruebas del anfitrión
+        run: cargo test --workspace --exclude kopit-kernel --exclude kopitboot
+      - name: Imagen de disco e ISO
+        run: |
+          cargo kopit image
+          cargo kopit iso

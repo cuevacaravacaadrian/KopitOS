@@ -1,0 +1,13 @@
+# Tableta: letra grande (pantalla táctil a distancia de brazo).
+[distro]
+inherits = "base"
+name = "KopitOS Tablet"
+description = "Tableta: interfaz grande y ahorro de energía"
+device_class = "tablet"
+
+[kernel]
+timer_hz = 300
+
+[ui]
+theme = "aurora"
+font_scale = "3"

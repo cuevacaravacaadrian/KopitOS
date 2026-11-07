@@ -1,0 +1,8 @@
+[package]
+name = "kopit-font"
+description = "Fuente de mapa de bits de KopitOS: 8x8 de dominio público, escalado suave Scale2x y caracteres del español"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+publish.workspace = true

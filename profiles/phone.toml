@@ -1,0 +1,18 @@
+# Teléfono: sin teclado PS/2 ni menú de arranque, letra grande.
+[distro]
+inherits = "base"
+name = "KopitOS Phone"
+description = "Teléfono: arranque directo, interfaz grande, bajo consumo"
+device_class = "phone"
+
+[kernel]
+features = ["fbcon", "shell", "acpi", "pci", "selftest"]
+timer_hz = 300
+
+[boot]
+timeout = 0
+safe_mode_entry = false
+
+[ui]
+theme = "kopit-noche"
+font_scale = "3"

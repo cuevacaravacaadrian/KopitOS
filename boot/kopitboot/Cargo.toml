@@ -1,0 +1,19 @@
+[package]
+name = "kopitboot"
+description = "KopitBoot: cargador UEFI de KopitOS (menú, verificación SHA-256, GOP, tablas de páginas, KBP)"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+publish.workspace = true
+
+[[bin]]
+name = "kopitboot"
+path = "src/main.rs"
+test = false
+bench = false
+
+[dependencies]
+kopit-boot-proto.workspace = true
+kopit-elf.workspace = true
+kopit-crypto.workspace = true
