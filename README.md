@@ -6,6 +6,13 @@
 </p>
 
 <p align="center">
+  <a href="https://github.com/cuevacaravacaadrian/KopitOS/actions/workflows/ci.yml"><img src="https://github.com/cuevacaravacaadrian/KopitOS/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
+  <img src="https://img.shields.io/badge/x86__64%20·%20ARM64%20·%20RISC--V-0f1424" alt="x86_64, ARM64 y RISC-V">
+  <img src="https://img.shields.io/badge/Rust-no__std-2f81f7" alt="Rust no_std">
+  <a href="LICENSE"><img src="https://img.shields.io/badge/licencia-MIT-7ee787" alt="Licencia MIT"></a>
+</p>
+
+<p align="center">
   <img src="docs/img/consola-arranque.png" alt="Consola de KopitOS tras arrancar con UEFI: barra superior con el reloj, registro coloreado y monitor del núcleo" width="88%">
 </p>
 
@@ -43,7 +50,7 @@ Necesitas **Rust** ([rustup](https://rustup.rs)) y **QEMU**. La versión exacta 
 objetivos bare-metal se instalan solos gracias a `rust-toolchain.toml`.
 
 ```sh
-git clone <este repositorio> && cd KopitOS
+git clone https://github.com/cuevacaravacaadrian/KopitOS.git && cd KopitOS
 cargo kopit run
 ```
 

@@ -18,12 +18,12 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
-      - name: QEMU y firmware UEFI
+      - name: QEMU y firmware (UEFI para x86_64, OpenSBI para RISC-V)
         run: |
           sudo apt-get update
-          sudo apt-get install -y qemu-system-x86 qemu-system-arm qemu-system-misc ovmf
+          sudo apt-get install -y qemu-system-x86 qemu-system-arm qemu-system-misc ovmf opensbi
       - name: Toolchain (rust-toolchain.toml)
-        run: rustup show
+        run: rustup toolchain install
       - name: Formato
         run: cargo fmt --all --check
       - name: x86_64 · UEFI (disco e ISO) + PVH
@@ -50,7 +50,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Toolchain (rust-toolchain.toml)
-        run: rustup show
+        run: rustup toolchain install
       - name: Pruebas del anfitrión
         run: cargo test --workspace --exclude kopit-kernel --exclude kopitboot
       - name: Imagen de disco e ISO
